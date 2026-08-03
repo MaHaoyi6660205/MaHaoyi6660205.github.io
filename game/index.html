@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AC Runner - 像素编程大冒险</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-wrapper">
+    <!-- 顶部信息栏 -->
+    <div class="top-bar">
+      <div class="title-area">
+        <span class="title-icon">👨‍💻</span>
+        <h1>AC Runner</h1>
+        <span class="subtitle">像素编程大冒险</span>
+      </div>
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-label">⏱️ 时间</span>
+          <span class="stat-value" id="timer">0.0s</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">🚀 速度</span>
+          <span class="stat-value" id="speed">1x</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">📍 进度</span>
+          <span class="stat-value" id="progress">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 游戏区域 -->
+    <div class="game-container">
+      <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+      <!-- 开始遮罩 -->
+      <div class="overlay" id="startOverlay">
+        <div class="overlay-content">
+          <div class="overlay-icon">🎮</div>
+          <h2>AC Runner</h2>
+          <p class="overlay-desc">控制你的程序员小人，避开 BUG 障碍，冲向 AC 终点！</p>
+          <div class="controls-hint">
+            <div class="hint-row"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 移动</div>
+            <div class="hint-row"><kbd>Space</kbd> 冲刺加速</div>
+            <div class="hint-row"><kbd>R</kbd> 重新开始</div>
+          </div>
+          <button class="btn-primary" id="startBtn">▶ 开始游戏</button>
+        </div>
+      </div>
+
+      <!-- 胜利遮罩 -->
+      <div class="overlay hidden" id="winOverlay">
+        <div class="overlay-content">
+          <div class="overlay-icon">🎉</div>
+          <h2>AC！Accepted！</h2>
+          <p class="overlay-desc">恭喜你成功通过所有测试点！</p>
+          <div class="result-stats">
+            <div class="result-item">
+              <span class="result-label">用时</span>
+              <span class="result-value" id="finalTime">--</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">碰撞次数</span>
+              <span class="result-value" id="finalCollisions">--</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">最高速度</span>
+              <span class="result-value" id="finalSpeed">--</span>
+            </div>
+          </div>
+          <button class="btn-primary" id="restartBtn">🔄 再来一次</button>
+        </div>
+      </div>
+
+      <!-- 失败遮罩 -->
+      <div class="overlay hidden" id="failOverlay">
+        <div class="overlay-content">
+          <div class="overlay-icon">💥</div>
+          <h2 id="failTitle">WA！Wrong Answer！</h2>
+          <p class="overlay-desc" id="failDesc">你的程序遇到了不可修复的运行时错误...</p>
+          <button class="btn-primary" id="retryBtn">🔄 重新提交</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部说明 -->
+    <div class="bottom-bar">
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot player"></span> 你（程序员）</span>
+        <span class="legend-item"><span class="legend-dot ac"></span> AC 终点</span>
+        <span class="legend-item"><span class="legend-dot wa"></span> WA 障碍</span>
+        <span class="legend-item"><span class="legend-dot tle"></span> TLE 陷阱</span>
+        <span class="legend-item"><span class="legend-dot mle"></span> MLE 墙</span>
+        <span class="legend-item"><span class="legend-dot re"></span> RE 区</span>
+      </div>
+      <div class="hint-text">提示：踩到 TLE 会变慢，踩到 WA 会重置位置，到达右下角 AC 即胜利！</div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
